@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfidelis <vfidelis@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/10 03:57:50 by vfidelis          #+#    #+#             */
-/*   Updated: 2025/01/23 22:42:42 by vfidelis         ###   ########.fr       */
+/*   Created: 2024/10/12 13:54:20 by vfidelis          #+#    #+#             */
+/*   Updated: 2024/10/15 13:23:53 by vfidelis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <sys/wait.h>
-# include "lib/libft.h"
+void	ft_lstadd_front(t_list **lst, t_list *new)
+{
+	if (new == NULL)
+		new = *lst;
+	else
+	{
+		new->next = *lst;
+		*lst = new;
+	}
+}
 
-int     ft_son(char **cmd, char *path_valid, char **env);
-char	**get_path(char **env);
-char	**valid_cmd(char **cmd, char **path, int argc);
-void	ft_dad(char **argv, int argc, char **env);
+/*int main()
+{
+    char point[] = "ooooooooo";
+    t_list *ola = {ft_lstnew(point)};
+    t_list *hello = ft_lstnew("hello");
+    ft_lstadd_front(&ola, hello);
+    printf("%s", (char *)ola->content);
 
-#endif
+}*/

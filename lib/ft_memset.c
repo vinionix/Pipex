@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfidelis <vfidelis@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/10 03:57:50 by vfidelis          #+#    #+#             */
-/*   Updated: 2025/01/23 22:42:42 by vfidelis         ###   ########.fr       */
+/*   Created: 2024/09/12 17:56:46 by vfidelis          #+#    #+#             */
+/*   Updated: 2024/09/12 17:56:59 by vfidelis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <sys/wait.h>
-# include "lib/libft.h"
+void	*ft_memset(void *string, int character, size_t num)
+{
+	size_t	i;
 
-int     ft_son(char **cmd, char *path_valid, char **env);
-char	**get_path(char **env);
-char	**valid_cmd(char **cmd, char **path, int argc);
-void	ft_dad(char **argv, int argc, char **env);
+	i = 0;
+	while (i < num)
+	{
+		((unsigned char *)string)[i] = (unsigned char)character;
+		i++;
+	}
+	return (string);
+}
 
-#endif
+/*int	main(void)
+{
+	char	arr[10];
+
+	printf("%s", (char *)ft_memset(arr, 65, 10));
+}*/

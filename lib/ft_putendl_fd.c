@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfidelis <vfidelis@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/10 03:57:50 by vfidelis          #+#    #+#             */
-/*   Updated: 2025/01/23 22:42:42 by vfidelis         ###   ########.fr       */
+/*   Created: 2024/10/07 15:25:36 by vfidelis          #+#    #+#             */
+/*   Updated: 2024/10/07 15:25:38 by vfidelis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <sys/wait.h>
-# include "lib/libft.h"
+void	ft_putendl_fd(char *s, int fd)
+{
+	size_t	count;
 
-int     ft_son(char **cmd, char *path_valid, char **env);
-char	**get_path(char **env);
-char	**valid_cmd(char **cmd, char **path, int argc);
-void	ft_dad(char **argv, int argc, char **env);
+	count = ft_strlen(s);
+	write(fd, s, count);
+	write(fd, "\n", 1);
+}
 
-#endif
+/*int main()
+{
+	ft_putendl_fd("Ola", 1);
+}*/

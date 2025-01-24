@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfidelis <vfidelis@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/10 03:57:50 by vfidelis          #+#    #+#             */
-/*   Updated: 2025/01/23 22:42:42 by vfidelis         ###   ########.fr       */
+/*   Created: 2024/09/20 15:23:58 by vfidelis          #+#    #+#             */
+/*   Updated: 2024/09/20 15:24:54 by vfidelis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <sys/wait.h>
-# include "lib/libft.h"
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
 
-int     ft_son(char **cmd, char *path_valid, char **env);
-char	**get_path(char **env);
-char	**valid_cmd(char **cmd, char **path, int argc);
-void	ft_dad(char **argv, int argc, char **env);
+	i = 0;
+	while (str[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
+}
 
-#endif
+/*int	main(void)
+{
+	printf("%zu", ft_strlen("ol"));
+}*/

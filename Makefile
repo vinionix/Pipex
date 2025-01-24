@@ -6,13 +6,14 @@
 #    By: vfidelis <vfidelis@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/15 14:21:23 by vfidelis          #+#    #+#              #
-#    Updated: 2025/01/15 22:11:00 by vfidelis         ###   ########.fr        #
+#    Updated: 2025/01/21 22:12:36 by vfidelis         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FLAGS = -Wall -Wextra -Werror
 
-FUNCTIONS = lib/ft_strjoin.c \
+FUNCTIONS = lib/ft_free.c \
+			lib/ft_strjoin.c \
 			lib/ft_strlen.c \
 			lib/ft_memcpy.c \
 			lib/ft_split.c \
@@ -20,7 +21,8 @@ FUNCTIONS = lib/ft_strjoin.c \
 			ft_utils.c \
 			pipex.c
 
-OBJS =	lib/ft_strjoin.o \
+OBJS =	lib/ft_free.o \
+		lib/ft_strjoin.o \
 		lib/ft_strlen.o \
 		lib/ft_memcpy.o \
 		lib/ft_split.o \

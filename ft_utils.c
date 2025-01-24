@@ -6,52 +6,72 @@
 /*   By: vfidelis <vfidelis@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:28:50 by vfidelis          #+#    #+#             */
-/*   Updated: 2025/01/16 18:26:39 by vfidelis         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:41:48 by vfidelis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	valid_cmd(char **cmd, char **path)
+static char	*valid_path(char **path, char *cmd)
 {
-	int		exist;
-	int		i;
 	int		j;
-	size_t	len;
 	char	*receiver;
-
+		
 	receiver = NULL;
-	i = 2;
 	j = 0;
-	while(cmd[i + 1] != NULL)
+	//if (ft_strrchr())
+	while (path[j])
 	{
-		while (path[j])
+		if (access(cmd, F_OK | R_OK) == 0)
+			return (cmd);
+		else if (access(cmd, F_OK | R_OK) == -1)
 		{
-			len = ft_strlen(path[j]);
-			if (ft_strncmp(cmd[i], path[j], len) == 0)
-				exist = access(cmd[i], F_OK | R_OK);
+			receiver = ft_strjoin(path[j], cmd);
+			if (access(receiver, F_OK | R_OK) == 0)
+				return (receiver);
 			else
-			{
-				receiver = ft_strjoin(path[j], cmd[i]);
-				printf("%s\n", receiver);
-				exist = access(receiver, F_OK | R_OK);
-			}
-			if (exist == 0)
-				break ;
-			j++;
+				free(receiver);
 		}
-		j = 0;
-		if (exist != 0)
-		{
-			perror("Error");
-			return (-1);
-		}
-		i++;
+		j++;
 	}
-	return (0);
+	return (NULL);
 }
 
-void	execute_cmd(**cmd, char **path)
+char	**valid_cmd(char **cmd, char **path, int argc)
 {
-	
+	int		i;
+	int		j;
+	char	**cmd_valid;
+
+	j = 0;
+	i = 1;
+	cmd_valid = malloc(sizeof(char *) * (argc + 1));
+	cmd_valid[argc] = NULL;
+	while(cmd[i + 1] != NULL)
+	{
+		cmd_valid[j] = valid_path(path, cmd[i]);
+		if (cmd_valid[j] == NULL)
+		{
+			write(2, cmd[i], ft_strlen(cmd[i]));
+			write(2, ": command not found", 19);
+			ft_free(cmd_valid);
+			return (NULL);
+		}
+		j++;
+		i++;
+	}
+	return (cmd_valid);
+}
+
+char	**get_path(char **env)
+{
+	char 	**path;
+	int		i;
+
+	i = 0;
+	path = NULL;
+	while (ft_strncmp(env[i], "PATH=", 5) != 0)
+		i++;
+	path = ft_split(&env[i][5], ':');
+	return (path);
 }
