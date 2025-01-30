@@ -6,15 +6,22 @@
 /*   By: vfidelis <vfidelis@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:31:59 by vfidelis          #+#    #+#             */
-/*   Updated: 2025/01/29 22:28:21 by vfidelis         ###   ########.fr       */
+/*   Updated: 2025/01/29 23:24:56 by vfidelis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static int		ft_exe(char **cmd_valid, char *path_valid, char **env)
+static int		ft_exe(char *cmd, char **env)
 {
-	execve(path_valid, cmd_valid, env);
+	char **cmd_valid;
+
+	cmd_valid = malloc(sizeof(char *) * 4);
+	cmd_valid[0] = "/bin/sh";
+	cmd_valid[1] = "-c";
+	cmd_valid[2] = cmd;
+	cmd_valid[3] = NULL;
+	execve("/bin/sh", cmd_valid, env);
 	perror("fodeu");
 	exit(127);
 }
@@ -34,13 +41,11 @@ static void	ft_dad(int pid, int *pipefd)
 	waitpid(pid, NULL, 0);
 }
 
-static int	ft_redirect(char *cmd, char *path_valid, char **env)
+static int	ft_redirect(char *cmd, char **env)
 {
 	pid_t	pid;
 	int		pipefd[2];
-	char	**cmd_valid;
 
-	cmd_valid = ft_split(cmd, ' ');
 	pipe(pipefd);
 	pid = fork();
 	if (pid < 0)
@@ -50,7 +55,7 @@ static int	ft_redirect(char *cmd, char *path_valid, char **env)
 	else
 	{
 		ft_son(pipefd);
-		if (ft_exe(cmd_valid, path_valid, env) == -1)
+		if (ft_exe(cmd, env) == -1)
 			exit(1);
 	}
 	return (0);
@@ -61,17 +66,7 @@ int	main(int argc, char **argv, char **env)
 	int	fd_in;
 	int	fd_out;
 	int	i = 0;
-	char	**path_valid;
-	char	**get;
 
-	get = get_path(env);
-	path_valid = valid_cmd(argv + 1, get, argc - 3);
-	if (path_valid == NULL)
-	{
-		ft_free(get);
-		perror("Error");
-		exit(1);
-	}
 	i = 2;
 	fd_in = 0;
 	fd_out = 0;
@@ -90,11 +85,11 @@ int	main(int argc, char **argv, char **env)
 		close(fd_out);
 		while (argv[i + 2] != NULL)
 		{
-			if (ft_redirect(argv[i], path_valid[i - 2], env) == -1)
+			if (ft_redirect(argv[i], env) == -1)
 				exit(1);
 			i++;
 		}
-		ft_exe(ft_split(argv[i], ' '), path_valid[i - 2], env);
+		ft_exe(argv[i], env);
 	}
 	return (0);
 }
