@@ -6,7 +6,7 @@
 /*   By: vfidelis <vfidelis@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:28:50 by vfidelis          #+#    #+#             */
-/*   Updated: 2025/01/23 20:41:48 by vfidelis         ###   ########.fr       */
+/*   Updated: 2025/01/29 22:27:22 by vfidelis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static char	*valid_path(char **path, char *cmd)
 	//if (ft_strrchr())
 	while (path[j])
 	{
-		if (access(cmd, F_OK | R_OK) == 0)
+		if (access(cmd, F_OK | R_OK | X_OK) == 0)
 			return (cmd);
-		else if (access(cmd, F_OK | R_OK) == -1)
+		else if (access(cmd, F_OK | R_OK | X_OK) == -1)
 		{
 			receiver = ft_strjoin(path[j], cmd);
 			if (access(receiver, F_OK | R_OK) == 0)
