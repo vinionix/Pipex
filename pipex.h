@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfidelis <vfidelis@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/10 03:57:50 by vfidelis          #+#    #+#             */
-/*   Updated: 2025/01/29 18:44:17 by vfidelis         ###   ########.fr       */
+/*   Created: 2025/01/30 18:08:26 by vfidelis          #+#    #+#             */
+/*   Updated: 2025/01/30 18:11:39 by vfidelis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,5 @@
 # include <string.h>
 # include <sys/wait.h>
 # include "lib/libft.h"
-
-char	**get_path(char **env);
-char	**valid_cmd(char **cmd, char **path, int argc);
 
 #endif
